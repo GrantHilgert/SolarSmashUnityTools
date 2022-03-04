@@ -121,7 +121,7 @@ for i in range(0,48):
 obj_file = open(obj_filename, "w+")
 
 obj_file.write("# Blender v2.91.2 OBJ File: ''\n")
-obj_file.write("#Solar Smash Unity Tools v." + str(major) + "." + "str(minor)+ "\n")
+obj_file.write("#Solar Smash Unity Tools v." + str(major) + "." + str(minor)+ "\n")
 #obj_file.write("mtllib cube.mtl\n")
 obj_file.write("o " + mesh_name + "\n")
 
