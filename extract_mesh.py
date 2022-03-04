@@ -13,7 +13,7 @@ obj_filename = filename.split(".")[0] + ".obj"
 vertex_count = 0
 index_count = 0
 mesh_name = ""
-print("Solar Smash Unity Tools Asset Extractor v." str(major) + "." + str(minor))
+print("Solar Smash Unity Tools Asset Extractor v." + str(major) + "." + str(minor))
 
 index_buffer_flag = 0
 vertex_buffer_flag = 0
