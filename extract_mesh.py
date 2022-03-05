@@ -2,13 +2,14 @@ import sys
 import struct
 
 major = 1
-minor = 0
+minor = 1
 
 filename = sys.argv[1]
 asset_file = open(filename, 'r')
 LINES = asset_file.readlines()
 
 obj_filename = filename.split(".")[0] + ".obj"
+mtl_filename = filename.split(".")[0] + ".mtl"
 
 vertex_count = 0
 index_count = 0
@@ -118,6 +119,10 @@ for i in range(0,size):
     ###########################################
     #Create Object File
 
+
+uv_filename = ""
+uv_material_name = mesh_name + "_uv_map"
+
 obj_file = open(obj_filename, "w+")
 
 obj_file.write("# Blender v2.91.2 OBJ File: ''\n")
@@ -182,7 +187,7 @@ for index in range(int( len(vertex_buffer) / (len(vertex_buffer)/vertex_count) )
 
 
 #Write Faces
-#obj_file.write("usemtl Material\n")
+obj_file.write("usemtl " + uv_material_name +"\n")
 obj_file.write("g " + mesh_name +"_0\n")
 
 for index in range(int(len(index_buffer)/3)):
@@ -190,3 +195,25 @@ for index in range(int(len(index_buffer)/3)):
     face2 = str(index_buffer[(index*3)+1]) + "/" + str(index_buffer[(index*3)+1]) + "/" + str(index_buffer[(index*3)+1]) + " "
     face3 = str(index_buffer[(index*3)+2]) + "/" + str(index_buffer[(index*3)+2]) + "/" + str(index_buffer[(index*3)+2]) + " "
     obj_file.write("f " + face3 + face2 + face1 + "\n" )
+
+
+
+    ###########################################
+    #Create MTL File (.OBJ Material File)
+
+mtl_file = open(mtl_filename, "w+")
+
+
+mtl_file.write("# Blender MTL File: 'None'\n")
+mtl_file.write("# Material Count: 1\n")
+
+mtl_file.write("newmtl "+ uv_material_name +"\n")
+mtl_file.write("Ns 225.000000\n")
+mtl_file.write("Ka 1.000000 1.000000 1.000000\n")
+mtl_file.write("Kd 0.800000 0.800000 0.800000\n")
+mtl_file.write("Ks 0.500000 0.500000 0.500000\n")
+mtl_file.write("Ke 0.000000 0.000000 0.000000\n")
+mtl_file.write("Ni 1.450000\n")
+mtl_file.write("d 1.000000\n")
+mtl_file.write("illum 2\n")
+mtl_file.write("map_Kd Earth_Full_DarkerSea.png\n")
