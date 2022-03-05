@@ -132,15 +132,23 @@ obj_file.write("o " + mesh_name + "\n")
 
 #Write Vertex
 for index in range(int( len(vertex_buffer) / (len(vertex_buffer)/vertex_count) ) ):
-    temp = "{:02x}".format(vertex_buffer[(index*size)+0]) + "{:02x}".format(vertex_buffer[(index*size)+1]) + "{:02x}".format(vertex_buffer[(index*size)+2]) + "{:02x}".format(vertex_buffer[(index*size)+3])
+    temp = "{:02x}".format(vertex_buffer[(index*size)+3]) + "{:02x}".format(vertex_buffer[(index*size)+2]) + "{:02x}".format(vertex_buffer[(index*size)+1]) + "{:02x}".format(vertex_buffer[(index*size)+0])
     #print(str(temp))
     vertex1 = str(round(struct.unpack('f', bytes.fromhex(temp))[0],6))
+    if(index == 0):
+        print(vertex_buffer[0])
+        print(temp)
+        print(vertex1)
     
-    temp = "{:02x}".format(vertex_buffer[(index*size)+4]) + "{:02x}".format(vertex_buffer[(index*size)+5]) + "{:02x}".format(vertex_buffer[(index*size)+6]) + "{:02x}".format(vertex_buffer[(index*size)+7])
+    temp = "{:02x}".format(vertex_buffer[(index*size)+7]) + "{:02x}".format(vertex_buffer[(index*size)+6]) + "{:02x}".format(vertex_buffer[(index*size)+5]) + "{:02x}".format(vertex_buffer[(index*size)+4])
     #print(str(temp))
     vertex2 = str(round(struct.unpack('f', bytes.fromhex(temp))[0],6))
-    
-    temp = "{:02x}".format(vertex_buffer[(index*size)+8]) + "{:02x}".format(vertex_buffer[(index*size)+9]) + "{:02x}".format(vertex_buffer[(index*size)+10]) + "{:02x}".format(vertex_buffer[(index*size)+11])
+    if(index == 0):
+        print(vertex_buffer[0])
+        print(temp)
+        print(vertex2)
+
+    temp = "{:02x}".format(vertex_buffer[(index*size)+11]) + "{:02x}".format(vertex_buffer[(index*size)+10]) + "{:02x}".format(vertex_buffer[(index*size)+9]) + "{:02x}".format(vertex_buffer[(index*size)+8])
     #print(str(temp))
     vertex3 = str(round(struct.unpack('f', bytes.fromhex(temp))[0],6))
     
@@ -169,15 +177,15 @@ for index in range(int( len(vertex_buffer) / (len(vertex_buffer)/vertex_count) )
 
 #Write Normals
 for index in range(int( len(vertex_buffer) / (len(vertex_buffer)/vertex_count) ) ):
-    temp = "{:02x}".format(vertex_buffer[(index*size)+12]) + "{:02x}".format(vertex_buffer[(index*size)+13]) + "{:02x}".format(vertex_buffer[(index*size)+14]) + "{:02x}".format(vertex_buffer[(index*size)+15])
+    temp = "{:02x}".format(vertex_buffer[(index*size)+15]) + "{:02x}".format(vertex_buffer[(index*size)+14]) + "{:02x}".format(vertex_buffer[(index*size)+13]) + "{:02x}".format(vertex_buffer[(index*size)+12])
     #print(str(temp))
     vertex1 = str(round(struct.unpack('f', bytes.fromhex(temp))[0],6)*-1)
     
-    temp = "{:02x}".format(vertex_buffer[(index*size)+16]) + "{:02x}".format(vertex_buffer[(index*size)+17]) + "{:02x}".format(vertex_buffer[(index*size)+18]) + "{:02x}".format(vertex_buffer[(index*size)+19])
+    temp = "{:02x}".format(vertex_buffer[(index*size)+19]) + "{:02x}".format(vertex_buffer[(index*size)+18]) + "{:02x}".format(vertex_buffer[(index*size)+17]) + "{:02x}".format(vertex_buffer[(index*size)+16])
     #print(str(temp))
     vertex2 = str(round(struct.unpack('f', bytes.fromhex(temp))[0],6)*-1)
     
-    temp = "{:02x}".format(vertex_buffer[(index*size)+20]) + "{:02x}".format(vertex_buffer[(index*size)+21]) + "{:02x}".format(vertex_buffer[(index*size)+22]) + "{:02x}".format(vertex_buffer[(index*size)+23])
+    temp = "{:02x}".format(vertex_buffer[(index*size)+23]) + "{:02x}".format(vertex_buffer[(index*size)+22]) + "{:02x}".format(vertex_buffer[(index*size)+21]) + "{:02x}".format(vertex_buffer[(index*size)+20])
     #print(str(temp))
     vertex3 = str(round(struct.unpack('f', bytes.fromhex(temp))[0],6)*-1)
     
@@ -217,4 +225,5 @@ mtl_file.write("Ni 1.450000\n")
 mtl_file.write("d 1.000000\n")
 mtl_file.write("illum 2\n")
 mtl_file.write("map_Kd Earth_Full_DarkerSea.png\n")
+mtl_file.write("map_Ks Earth_Spec_Full.png\n")
 mtl_file.write("map_Ke Earth_Emission_Full_2.png\n")
