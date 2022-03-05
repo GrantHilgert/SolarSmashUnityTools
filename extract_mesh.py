@@ -109,7 +109,7 @@ else:
 print("VERTEX PACKET SIZE: " + str(int(len(vertex_buffer)/vertex_count) ))
 size = int(len(vertex_buffer)/vertex_count)
 
-for i in range(0,48):
+for i in range(0,size):
     print("Byte[" + str(i) + "]: " + str(vertex_buffer[i]))
 
 
@@ -144,26 +144,43 @@ for index in range(int( len(vertex_buffer) / (len(vertex_buffer)/vertex_count) )
     obj_file.write("v " + vertex1 + " " +vertex2 +" " + vertex3 + "\n" )
 
 #Write UV
+
+for index in range(int( len(vertex_buffer) / (len(vertex_buffer)/vertex_count) ) ):
+    temp = "{:02x}".format(vertex_buffer[(index*size)+44]) + "{:02x}".format(vertex_buffer[(index*size)+45]) + "{:02x}".format(vertex_buffer[(index*size)+46]) + "{:02x}".format(vertex_buffer[(index*size)+47])
+    #print(str(temp))
+    u = str(round(struct.unpack('f', bytes.fromhex(temp))[0],6))
+    
+    temp = "{:02x}".format(vertex_buffer[(index*size)+48]) + "{:02x}".format(vertex_buffer[(index*size)+49]) + "{:02x}".format(vertex_buffer[(index*size)+50]) + "{:02x}".format(vertex_buffer[(index*size)+51])
+    #print(str(temp))
+    v = str(round(struct.unpack('f', bytes.fromhex(temp))[0],6))
+    
+
+    
+
+
+    obj_file.write("vt " + u + " " +  v+ "\n" )
+
 for index in range(int( len(vertex_buffer) / (len(vertex_buffer)/vertex_count) ) ):
     obj_file.write("vt 0.0 0.0\n" )
 
 
 #Write Normals
 for index in range(int( len(vertex_buffer) / (len(vertex_buffer)/vertex_count) ) ):
-    
-    #temp = "{:02x}".format(vertex_buffer[index+12]) + "{:02x}".format(vertex_buffer[index+13]) + "{:02x}".format(vertex_buffer[index+14]) + "{:02x}".format(vertex_buffer[index+15])
+    temp = "{:02x}".format(vertex_buffer[(index*size)+12]) + "{:02x}".format(vertex_buffer[(index*size)+13]) + "{:02x}".format(vertex_buffer[(index*size)+14]) + "{:02x}".format(vertex_buffer[(index*size)+15])
     #print(str(temp))
-    #vertex1 = str(struct.unpack('!f', bytes.fromhex(temp))[0]) + " "
+    vertex1 = str(round(struct.unpack('f', bytes.fromhex(temp))[0],6)*-1)
     
-    #temp = "{:02x}".format(vertex_buffer[index+16]) + "{:02x}".format(vertex_buffer[index+17]) + "{:02x}".format(vertex_buffer[index+18]) + "{:02x}".format(vertex_buffer[index+19])
+    temp = "{:02x}".format(vertex_buffer[(index*size)+16]) + "{:02x}".format(vertex_buffer[(index*size)+17]) + "{:02x}".format(vertex_buffer[(index*size)+18]) + "{:02x}".format(vertex_buffer[(index*size)+19])
     #print(str(temp))
-    #vertex2 = str(struct.unpack('!f', bytes.fromhex(temp))[0]) + " "
+    vertex2 = str(round(struct.unpack('f', bytes.fromhex(temp))[0],6)*-1)
     
-    #temp = "{:02x}".format(vertex_buffer[index+20]) + "{:02x}".format(vertex_buffer[index+21]) + "{:02x}".format(vertex_buffer[index+22]) + "{:02x}".format(vertex_buffer[index+23])
+    temp = "{:02x}".format(vertex_buffer[(index*size)+20]) + "{:02x}".format(vertex_buffer[(index*size)+21]) + "{:02x}".format(vertex_buffer[(index*size)+22]) + "{:02x}".format(vertex_buffer[(index*size)+23])
     #print(str(temp))
-    #vertex3 = str(struct.unpack('!f', bytes.fromhex(temp))[0]) + " "
-    obj_file.write("vn 0 0 0\n" )
-   # obj_file.write("vn " + vertex1 + vertex2 + vertex3 + "\n" )
+    vertex3 = str(round(struct.unpack('f', bytes.fromhex(temp))[0],6)*-1)
+    
+
+
+    obj_file.write("vn " + vertex1 + " " +vertex2 +" " + vertex3 + "\n" )
 
 
 #Write Faces
