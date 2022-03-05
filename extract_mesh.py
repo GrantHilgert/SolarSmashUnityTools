@@ -160,8 +160,6 @@ for index in range(int( len(vertex_buffer) / (len(vertex_buffer)/vertex_count) )
 
     obj_file.write("vt " + u + " " +  v+ "\n" )
 
-for index in range(int( len(vertex_buffer) / (len(vertex_buffer)/vertex_count) ) ):
-    obj_file.write("vt 0.0 0.0\n" )
 
 
 #Write Normals
